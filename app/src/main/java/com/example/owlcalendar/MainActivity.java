@@ -2,10 +2,15 @@ package com.example.owlcalendar;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Fragment {
 
     public static String[] daydata=new String[42];
 
@@ -202,57 +207,61 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        View v=inflater.inflate(R.layout.activity_main, container, false);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        c01 = findViewById(R.id.c01);
-        c02 = findViewById(R.id.c02);
-        c03 = findViewById(R.id.c03);
-        c04 = findViewById(R.id.c04);
-        c05 = findViewById(R.id.c05);
-        c06 = findViewById(R.id.c06);
-        c07 = findViewById(R.id.c07);
-        c08 = findViewById(R.id.c08);
-        c09 = findViewById(R.id.c09);
-        c10 = findViewById(R.id.c10);
-        c11 = findViewById(R.id.c11);
-        c12 = findViewById(R.id.c12);
-        c13 = findViewById(R.id.c13);
-        c14 = findViewById(R.id.c14);
-        c15 = findViewById(R.id.c15);
-        c16 = findViewById(R.id.c16);
-        c17 = findViewById(R.id.c17);
-        c18 = findViewById(R.id.c18);
-        c19 = findViewById(R.id.c19);
-        c20 = findViewById(R.id.c20);
-        c21 = findViewById(R.id.c21);
-        c22 = findViewById(R.id.c22);
-        c23 = findViewById(R.id.c23);
-        c24 = findViewById(R.id.c24);
-        c25 = findViewById(R.id.c25);
-        c26 = findViewById(R.id.c26);
-        c27 = findViewById(R.id.c27);
-        c28 = findViewById(R.id.c28);
-        c29 = findViewById(R.id.c29);
-        c30 = findViewById(R.id.c30);
-        c31 = findViewById(R.id.c31);
-        c32 = findViewById(R.id.c32);
-        c33 = findViewById(R.id.c33);
-        c34 = findViewById(R.id.c34);
-        c35 = findViewById(R.id.c35);
-        c36 = findViewById(R.id.c36);
-        c37 = findViewById(R.id.c37);
-        c38 = findViewById(R.id.c38);
-        c39 = findViewById(R.id.c39);
-        c40 = findViewById(R.id.c40);
-        c41 = findViewById(R.id.c41);
-        c42 = findViewById(R.id.c42);
-        title =findViewById(R.id.title);
+        c01 = v.findViewById(R.id.c01);
+        c02 = v.findViewById(R.id.c02);
+        c03 = v.findViewById(R.id.c03);
+        c04 = v.findViewById(R.id.c04);
+        c05 = v.findViewById(R.id.c05);
+        c06 = v.findViewById(R.id.c06);
+        c07 = v.findViewById(R.id.c07);
+        c08 = v.findViewById(R.id.c08);
+        c09 = v.findViewById(R.id.c09);
+        c10 = v.findViewById(R.id.c10);
+        c11 = v.findViewById(R.id.c11);
+        c12 = v.findViewById(R.id.c12);
+        c13 = v.findViewById(R.id.c13);
+        c14 = v.findViewById(R.id.c14);
+        c15 = v.findViewById(R.id.c15);
+        c16 = v.findViewById(R.id.c16);
+        c17 = v.findViewById(R.id.c17);
+        c18 = v.findViewById(R.id.c18);
+        c19 = v.findViewById(R.id.c19);
+        c20 = v.findViewById(R.id.c20);
+        c21 = v.findViewById(R.id.c21);
+        c22 = v.findViewById(R.id.c22);
+        c23 = v.findViewById(R.id.c23);
+        c24 = v.findViewById(R.id.c24);
+        c25 = v.findViewById(R.id.c25);
+        c26 = v.findViewById(R.id.c26);
+        c27 = v.findViewById(R.id.c27);
+        c28 = v.findViewById(R.id.c28);
+        c29 = v.findViewById(R.id.c29);
+        c30 = v.findViewById(R.id.c30);
+        c31 = v.findViewById(R.id.c31);
+        c32 = v.findViewById(R.id.c32);
+        c33 = v.findViewById(R.id.c33);
+        c34 = v.findViewById(R.id.c34);
+        c35 = v.findViewById(R.id.c35);
+        c36 = v.findViewById(R.id.c36);
+        c37 = v.findViewById(R.id.c37);
+        c38 = v.findViewById(R.id.c38);
+        c39 = v.findViewById(R.id.c39);
+        c40 = v.findViewById(R.id.c40);
+        c41 = v.findViewById(R.id.c41);
+        c42 = v.findViewById(R.id.c42);
+        title =v.findViewById(R.id.title);
 
-        Button forward=findViewById(R.id.forward);
-        Button back=findViewById(R.id.back);
+        Button forward=v.findViewById(R.id.forward);
+        Button back=v.findViewById(R.id.back);
 
         init();
 
@@ -305,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[0]!=""){
                     Schedule sc=new Schedule(0);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -316,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[1]!=""){
                     Schedule sc=new Schedule(1);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -327,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[2]!=""){
                     Schedule sc=new Schedule(2);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -338,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[3]!=""){
                     Schedule sc=new Schedule(3);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -349,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[4]!=""){
                     Schedule sc=new Schedule(4);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -360,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[5]!=""){
                     Schedule sc=new Schedule(5);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -371,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[6]!=""){
                     Schedule sc=new Schedule(6);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -382,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[7]!=""){
                     Schedule sc=new Schedule(7);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -393,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[8]!=""){
                     Schedule sc=new Schedule(8);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -404,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[9]!=""){
                     Schedule sc=new Schedule(9);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -415,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[10]!=""){
                     Schedule sc=new Schedule(10);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -426,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[11]!=""){
                     Schedule sc=new Schedule(11);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -437,7 +446,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[12]!=""){
                     Schedule sc=new Schedule(12);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -448,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[13]!=""){
                     Schedule sc=new Schedule(13);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -459,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[14]!=""){
                     Schedule sc=new Schedule(14);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -470,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[15]!=""){
                     Schedule sc=new Schedule(15);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -481,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[16]!=""){
                     Schedule sc=new Schedule(16);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -492,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[17]!=""){
                     Schedule sc=new Schedule(17);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -503,7 +512,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[18]!=""){
                     Schedule sc=new Schedule(18);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -514,7 +523,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[19]!=""){
                     Schedule sc=new Schedule(19);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -525,7 +534,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[20]!=""){
                     Schedule sc=new Schedule(20);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -537,7 +546,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[21]!=""){
                     Schedule sc=new Schedule(21);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -548,7 +557,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[22]!=""){
                     Schedule sc=new Schedule(22);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -560,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[23]!=""){
                     Schedule sc=new Schedule(23);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -571,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[24]!=""){
                     Schedule sc=new Schedule(24);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -582,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[25]!=""){
                     Schedule sc=new Schedule(25);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -593,7 +602,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[26]!=""){
                     Schedule sc=new Schedule(26);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -604,7 +613,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[27]!=""){
                     Schedule sc=new Schedule(27);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -615,7 +624,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[28]!=""){
                     Schedule sc=new Schedule(28);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -626,7 +635,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[29]!=""){
                     Schedule sc=new Schedule(29);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -637,7 +646,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[30]!=""){
                     Schedule sc=new Schedule(30);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -648,7 +657,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[31]!=""){
                     Schedule sc=new Schedule(31);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -659,7 +668,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[32]!=""){
                     Schedule sc=new Schedule(32);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -670,7 +679,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[33]!=""){
                     Schedule sc=new Schedule(33);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -681,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[34]!=""){
                     Schedule sc=new Schedule(34);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -692,7 +701,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[35]!=""){
                     Schedule sc=new Schedule(35);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -704,7 +713,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[36]!=""){
                     Schedule sc=new Schedule(36);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -715,7 +724,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[37]!=""){
                     Schedule sc=new Schedule(37);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -726,7 +735,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[38]!=""){
                     Schedule sc=new Schedule(38);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -737,7 +746,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[39]!=""){
                     Schedule sc=new Schedule(39);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -748,7 +757,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[40]!=""){
                     Schedule sc=new Schedule(40);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -759,7 +768,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(daydata[41]!=""){
                     Schedule sc=new Schedule(41);
-                    Intent intent=new Intent(MainActivity.this,sc.getClass());
+                    Intent intent=new Intent(getContext(),sc.getClass());
                     startActivity(intent);
                 }
             }
@@ -767,8 +776,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
+        return v;
         
 
 

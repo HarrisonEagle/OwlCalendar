@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/maincontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="150px">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:layout_alignParentBottom="true"
+        android:background="#114514">
+        <Button
+            android:id="@+id/calendarbtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="Calendar"
+            android:textColor="#ffffff"
+            android:textSize="50px"
+            android:layout_weight="1"></Button>
+        <Button
+            android:id="@+id/schedulebtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="Schedule"
+            android:textColor="#ffffff"
+            android:textSize="50px"
+            android:layout_weight="1"></Button>
+        <Button
+            android:id="@+id/mypagebtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:text="MyPage"
+            android:textColor="#ffffff"
+            android:textSize="50px"
+            android:layout_weight="1"></Button>
+    </LinearLayout>
+
+
+</RelativeLayout>
