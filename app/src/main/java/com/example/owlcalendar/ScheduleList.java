@@ -71,8 +71,15 @@ public class ScheduleList extends Fragment {
         if(lv == null){
             lv = v.findViewById(R.id.schlist);
         }
-
-        MainContents.webclient.setBasicAuth(MainContents.getDefaults("username",getContext()),MainContents.getDefaults("password",getContext()));
+        String username = MainContents.getDefaults("username",getContext());
+        String password = MainContents.getDefaults("password",getContext());
+        if(username==null){
+            username="";
+        }
+        if(password==null){
+            password="";
+        }
+        MainContents.webclient.setBasicAuth(username,password);
         MainContents.webclient.get(DataCommunicator.PROTOCOL + "://" + DataCommunicator.host + "/schapi/index", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

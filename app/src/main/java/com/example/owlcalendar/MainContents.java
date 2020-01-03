@@ -129,7 +129,15 @@ public class MainContents extends AppCompatActivity{
                 @Override
                 public void onFinish() {
                     super.onFinish();
-                    MainContents.webclient.setBasicAuth(MainContents.getDefaults("username",getApplicationContext()),MainContents.getDefaults("password",getApplicationContext()));
+                    String username = MainContents.getDefaults("username",getApplicationContext());
+                    String password = MainContents.getDefaults("password",getApplicationContext());
+                    if(username==null){
+                        username="";
+                    }
+                    if(password==null){
+                        password="";
+                    }
+                    MainContents.webclient.setBasicAuth(username,password);
                     MainContents.webclient.get(DataCommunicator.PROTOCOL + "://" + DataCommunicator.host + "/schapi/index", new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
