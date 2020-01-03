@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0C0C0">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:gravity="center_vertical"
+        android:background="#707070">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新規登録"
+            android:textSize="70px"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="25px"
+            android:id="@+id/daytext"></TextView>
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_marginTop="150px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:text="ユーザー名"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="username"
+        android:textSize="30dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/roundedittext"
+        android:id="@+id/usernamebox"
+        ></EditText>
+    <TextView
+
+        android:layout_marginTop="100px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:text="メールアドレス"></TextView>
+
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="30dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/roundedittext"
+        android:id="@+id/emailbox"
+        ></EditText>
+
+    <TextView
+
+        android:layout_marginTop="100px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:text="パスワード"></TextView>
+
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50px"
+        android:hint="Password"
+        android:textSize="30dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/roundedittext"
+        android:id="@+id/passwordbox"
+        ></EditText>
+
+    <Button
+        android:layout_marginTop="150px"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/submitbtn"
+        android:text="作成"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:background="@drawable/greenroundbutton"></Button>
+
+
+</LinearLayout>

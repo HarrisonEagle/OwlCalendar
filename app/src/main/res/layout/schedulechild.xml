@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="80dp"
+    android:id="@+id/swipelayout">
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="160dp"
+        android:weightSum="1"
+        android:layout_height="match_parent">
+        <!--What you want to show-->
+        <Button
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="編集"
+            android:id="@+id/editbtn"
+            android:background="#00ff00"></Button>
+        <Button
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="削除"
+            android:id="@+id/delbtn"
+
+            android:background="#ff0000"></Button>
+    </LinearLayout>
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00ffff"
+        android:padding="15px"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="12pt"
+            android:textSize="10pt"
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:text="00:00"
+            android:id="@+id/childtextchild"></TextView>
+
+        <TextView
+            android:layout_marginTop="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
+            android:ellipsize="end"
+            android:text="content"
+            android:id="@+id/contentchild"></TextView>
+
+
+
+
+
+    </LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

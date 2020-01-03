@@ -1,25 +1,44 @@
 package com.example.owlcalendar;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.CookieStore;
+import cz.msebera.android.httpclient.client.protocol.ClientContext;
+import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
+import cz.msebera.android.httpclient.protocol.HttpContext;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -29,90 +48,101 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ScheduleList extends Fragment {
+
+
+    public static Context context;
+    public static ListView lv;
+    public static ArrayList<String> yoteis = new ArrayList<>();
+
+
+
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
 
-        View v = inflater.inflate(R.layout.schedulelist,container, false);
-        final ArrayList<String> yoteis = new ArrayList<String>();
-        //OkHttpClinet生成
-        OkHttpClient client = new OkHttpClient();
-        String userid = MainContents.getDefaults("userid",getContext());
-
-        if(userid==null){
-            userid="";
-        }
+        final View v = inflater.inflate(R.layout.schedulelist,container, false);
+        context = getContext();
+        //
         //request生成
-        RequestBody formBody = new FormBody.Builder()
-                .add("userid",userid)
-                .build();
 
-        Request request = new Request.Builder()
-                .url("https://owlcalendar.herokuapp.com/schapi/index")
-                .post(formBody)
-                .build();
+        if(lv == null){
+            lv = v.findViewById(R.id.schlist);
+        }
 
-        //非同期リクエスト
-        client.newCall(request)
-                .enqueue(new Callback() {
+        MainContents.webclient.setBasicAuth(MainContents.getDefaults("username",getContext()),MainContents.getDefaults("password",getContext()));
+        MainContents.webclient.get(DataCommunicator.PROTOCOL + "://" + DataCommunicator.host + "/schapi/index", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                    //エラーのとき
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("Hoge",e.getMessage());
+                //response取り出し
+                final String jsonStr = new String(responseBody);
+                Log.d("Tagarray","jsonStr=" + jsonStr);
+                try {
+                    JSONArray jarray = new JSONArray(jsonStr);
+                    for (int i = 0; i < jarray.length(); ++ i) {
+                        JSONObject json = jarray.getJSONObject(i);
+
+                        String content = json.getString("content");
+                        String time = json.getString("timedata");
+                        String yotei = "Content:"+content+"Time:"+time;
+                        yoteis.add(json.toString());
                     }
+                }
+                catch (org.json.JSONException e) {
 
-                    //正常のとき
+                }
+
+
+                //JSON処理
+                try{
+                    //jsonパース
+                    JSONObject json = new JSONObject(jsonStr);
+                    final String status = json.getString("status");
+
+                    //親スレッドUI更新
+
+
+                }catch(Exception e){
+                    Log.e("Hoge",e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                ScheduleAdapter aa = new ScheduleAdapter(getContext(),yoteis);
+                lv.setAdapter(aa);
+
+                Button newschedule = v.findViewById(R.id.newyoteibutton);
+                newschedule.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
-                        //response取り出し
-                        final String jsonStr = response.body().string();
-                        //Log.d("Tagarray","jsonStr=" + jsonStr);
-                        try {
-                            JSONArray jarray = new JSONArray(jsonStr);
-                            for (int i = 0; i < jarray.length(); ++ i) {
-                                JSONObject json = jarray.getJSONObject(i);
-
-                                String content = json.getString("content");
-                                String time = json.getString("timedata");
-                                String yotei = "Content:"+content+"Time:"+time;
-                                yoteis.add(yotei);
-                            }
-                        }
-                        catch (org.json.JSONException e) {
-
-                        }
-
-
-                        //JSON処理
-                        try{
-                            //jsonパース
-                            JSONObject json = new JSONObject(jsonStr);
-                            final String status = json.getString("status");
-
-                            //親スレッドUI更新
-                            Handler mainHandler = new Handler(Looper.getMainLooper());
-                            mainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                }
-                            });
-
-
-                        }catch(Exception e){
-                            Log.e("Hoge",e.getMessage());
-                        }
-
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(),NewSchedule.class);
+                        startActivity(intent);
                     }
                 });
-        ListView lv = v.findViewById(R.id.schlist);
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(),android.R.layout.simple_expandable_list_item_1,yoteis);
-        lv.setAdapter(aa);
 
-        super.onCreate(savedInstanceState);
+            }
+                });
+
+
+
+
+
+
+
+
+
+
 
         return v;
     }

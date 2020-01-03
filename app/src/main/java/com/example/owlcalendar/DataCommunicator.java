@@ -31,6 +31,8 @@ import java.net.URL;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.CookieStore;
+import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -43,6 +45,12 @@ import com.loopj.android.http.*;
 public class DataCommunicator {
 
     public static String message="";
+    public static String sessionid = "";
+    public static String PROTOCOL ="https";
+    public static String host = "owlcalendar.herokuapp.com";
+    public static CookieStore myCookieStore;
+
+
 
     String login(String username,String password){
 

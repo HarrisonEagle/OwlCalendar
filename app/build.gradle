@@ -27,4 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.squareup.okhttp3:okhttp:4.0.0-alpha02'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.asksira.android:loopingviewpager:1.2.0'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.jakewharton:process-phoenix:2.0.0'
 }

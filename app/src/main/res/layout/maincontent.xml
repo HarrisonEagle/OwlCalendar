@@ -16,34 +16,44 @@
         android:layout_width="match_parent"
         android:layout_height="150px"
         android:layout_alignParentBottom="true"
-        android:background="#114514">
-        <Button
+        android:gravity="center"
+       >
+
+        <ImageButton
             android:id="@+id/calendarbtn"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150px"
+            android:gravity="center"
+            android:scaleType="centerInside"
             android:background="@null"
-            android:text="Calendar"
-            android:textColor="#ffffff"
-            android:textSize="50px"
-            android:layout_weight="1"></Button>
-        <Button
+            android:layout_weight="1"
+            android:src="@mipmap/calendarsmallgray">
+
+        </ImageButton>
+
+        <ImageButton
             android:id="@+id/schedulebtn"
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150px"
+            android:scaleType="centerInside"
             android:background="@null"
-            android:text="Schedule"
-            android:textColor="#ffffff"
-            android:textSize="50px"
-            android:layout_weight="1"></Button>
-        <Button
+            android:src="@mipmap/schedulelistgray"
+            android:layout_weight="1"></ImageButton>
+
+        <ImageButton
             android:id="@+id/mypagebtn"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:orientation="vertical"
+            android:src="@mipmap/settingsgray"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:background="@null"
-            android:text="MyPage"
-            android:textColor="#ffffff"
-            android:textSize="50px"
-            android:layout_weight="1"></Button>
+            android:layout_height="150px"
+            android:layout_weight="1"></ImageButton>
+
     </LinearLayout>
 
 

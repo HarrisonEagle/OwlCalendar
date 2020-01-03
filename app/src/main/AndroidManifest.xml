@@ -19,9 +19,18 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".Schedule"></activity>
 
         <activity android:name=".LoginActivity"></activity>
+
+        <activity android:name=".DayDetail"></activity>
+
+        <activity android:name=".NewSchedule"></activity>
+
+        <activity android:name=".EditSchedule"></activity>
+
+        <activity android:name=".ChangePWDActivity"></activity>
+
+        <activity android:name=".RegisterActivity"></activity>
 
     </application>
 

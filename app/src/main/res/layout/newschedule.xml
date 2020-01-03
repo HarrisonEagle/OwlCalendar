@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0C0C0">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:gravity="center_vertical"
+        android:background="#707070">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="予定の新規作成"
+            android:textSize="70px"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="25px"
+            android:id="@+id/daytext"></TextView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/datetext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="200px"
+            android:background="@drawable/roundedittext"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:textSize="30dp"></EditText>
+
+        <Button
+            android:id="@+id/seldate"
+            android:layout_width="200px"
+            android:layout_height="180px"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:background="#00ffff"
+            android:text="日付の選択"></Button>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_marginRight="200px"
+            android:id="@+id/timetext"
+            android:textSize="30dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/roundedittext"
+            android:layout_height="wrap_content"></EditText>
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_width="200px"
+            android:id="@+id/seltime"
+            android:layout_height="wrap_content"
+            android:background="#00ffff"
+            android:text="時間の選択"></Button>
+    </RelativeLayout>
+
+    <EditText
+        android:hint="予定内容"
+        android:layout_marginTop="40px"
+        android:layout_width="match_parent"
+        android:id="@+id/yoteicontent"
+        android:textSize="30dp"
+        android:padding="10dp"
+        android:background="@drawable/roundedittext"
+        android:layout_height="800px"></EditText>
+
+    <Button
+        android:layout_marginTop="20px"
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/greenroundbutton"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:text="作成"></Button>
+
+</LinearLayout>
