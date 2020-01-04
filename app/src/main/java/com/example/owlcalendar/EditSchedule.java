@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
@@ -146,9 +147,18 @@ public class EditSchedule extends AppCompatActivity implements
                 if(password==null){
                     password="";
                 }
+
+                RequestParams requestParams = new RequestParams();
+                requestParams.add("userid",userdata.getString("id"));
+                requestParams.add("timedata",year+month+day+hour+minute);
+                requestParams.add("time",String.valueOf(timenum));
+                requestParams.add("content",yoteicontent.getText().toString());
+                requestParams.add("id",id);
+                MainContents.webclient.setBasicAuth(username,password);
+                Log.d("posttry",jsonObject.toString());
                 MainContents.webclient.setBasicAuth(username,password);
                 StringEntity entity = new StringEntity(jsonObject.toString());
-                MainContents.webclient.post(getApplicationContext(),DataCommunicator.PROTOCOL+"://"+DataCommunicator.host+"/editschapi/index",entity, "application/json", new AsyncHttpResponseHandler() {
+                MainContents.webclient.post(getApplicationContext(),DataCommunicator.PROTOCOL+"://"+DataCommunicator.host+"/editschapi/index",requestParams, new AsyncHttpResponseHandler() {
 
 
                     public String response;

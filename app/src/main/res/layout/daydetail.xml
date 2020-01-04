@@ -18,11 +18,17 @@
             android:id="@+id/daytext"></TextView>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/detaillist"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="150px"></ListView>
+        android:id="@+id/swiperefreshlayout"
+        android:layout_marginTop="150px">
+        <ListView
+            android:id="@+id/detaillist"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="150px"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ImageButton
         android:id="@+id/newyoteibutton"

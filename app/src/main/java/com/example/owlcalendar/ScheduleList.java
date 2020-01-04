@@ -1,16 +1,27 @@
 package com.example.owlcalendar;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +42,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookiePolicy;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.client.CookieStore;
@@ -55,6 +70,21 @@ public class ScheduleList extends Fragment {
     public static ArrayList<String> yoteis = new ArrayList<>();
 
 
+    public static  void createNotificationChannel(int i){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Channel_id"+i;
+            String description = "114514"+i;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("Channel_id"+i,name,importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+    }
+
+
+
     public static void retrievedata(){
         String username = MainContents.getDefaults("username",context);
         String password = MainContents.getDefaults("password",context);
@@ -75,16 +105,74 @@ public class ScheduleList extends Fragment {
                 try {
                     JSONArray jarray = new JSONArray(jsonStr);
                     yoteis.clear();
+
                     for (int i = 0; i < jarray.length(); ++ i) {
+
+
+
+                        createNotificationChannel(i);
                         JSONObject json = jarray.getJSONObject(i);
 
                         String content = json.getString("content");
                         String time = json.getString("timedata");
+
                         String yotei = "Content:"+content+"Time:"+time;
                         yoteis.add(json.toString());
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        calendar.add(Calendar.SECOND, 1);
+
+                        final String time2 = json.getString("timedata");
+                        int yeartime = Integer.valueOf(time2.substring(0,4));
+                        int monthtime = Integer.valueOf(time2.substring(4,6));
+                        int daytime = Integer.valueOf(time2.substring(6,8));
+                        int hour = Integer.valueOf(time2.substring(8,10));
+                        String minute = time2.substring(10);
+                        if(Integer.valueOf(minute)<10&&minute.length()==1){
+                            minute = "0" + minute;
+                        }
+                        Calendar cal = Calendar.getInstance();
+
+                        cal.setTimeInMillis(System.currentTimeMillis());
+                        cal.clear();
+                        cal.set(Calendar.YEAR,yeartime);
+                        cal.set(Calendar.MONTH,monthtime-1);
+                        cal.set(Calendar.DATE,daytime);
+                        cal.set(Calendar.HOUR,hour);
+                        cal.set(Calendar.MINUTE,Integer.valueOf(minute));
+                        cal.set(Calendar.SECOND, 0);
+                        cal.set(Calendar.MILLISECOND, 0);
+                        String before = yeartime + "-"+monthtime+"-"+daytime+" "+hour+":"+minute;
+
+
+
+
+                        Intent intent = new Intent(context,ReminderBroadcast.class);
+                        intent.putExtra("id",String.valueOf(i));
+                        intent.putExtra("title",hour+":"+minute+"の予定");
+                        intent.putExtra("content",content);
+
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,i,intent,PendingIntent.FLAG_ONE_SHOT);
+
+
+
+
+
+                        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+
+
+                        long after = cal.getTimeInMillis();
+                        SimpleDateFormat  object = new SimpleDateFormat("yyyy-MM-dd HH-mm");
+
+                        Log.d("TimeSecond","Before:"+before+"After:"+object.format(cal.getTime()));
+
+                        alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+
                     }
                 }
-                catch (org.json.JSONException e) {
+                catch (Exception e) {
 
                 }
 
@@ -152,7 +240,22 @@ public class ScheduleList extends Fragment {
             }
         });
 
+        final SwipeRefreshLayout swipeRefreshLayout = v.findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MainContents.retrievedata(0);
+                ScheduleList.retrievedata();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 更新が終了したらインジケータ非表示
+                        swipeRefreshLayout.setRefreshing(false);
 
+                    }
+                }, 2000);
+            }
+        });
 
         retrievedata();
 

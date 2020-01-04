@@ -1,13 +1,23 @@
 package com.example.owlcalendar;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -47,6 +58,8 @@ public class MainContents extends AppCompatActivity{
     public static ScheduleList sl;
 
     public static ArrayList<String> yoteis = new ArrayList<String>();
+
+
 
     public static void retrievedata(final int status){
         String username = getDefaults("username",context);
@@ -118,6 +131,8 @@ public class MainContents extends AppCompatActivity{
                                 String time = json.getString("timedata");
                                 String yotei = "Content:"+content+"Time:"+time;
                                 yoteis.add(json.toString());
+
+
                             }
                         }
                         catch (org.json.JSONException e) {
@@ -180,12 +195,22 @@ public class MainContents extends AppCompatActivity{
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit().remove(key).apply();
     }
+
+
+
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        return builder.build();
+    }
+
         @Override
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-            if(!isTaskRoot()){
-                //finish();
-            }
+
             setContentView(R.layout.maincontent);
 
             context = getApplicationContext();
@@ -237,11 +262,23 @@ public class MainContents extends AppCompatActivity{
                 }
             });
 
+
+            //ma.retrievedata();
             retrievedata(0);
 
 
 
 
 
+
+
+
+
+
+
+
         }
+
+
+
 }

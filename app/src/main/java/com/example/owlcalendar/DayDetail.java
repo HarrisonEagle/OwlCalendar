@@ -3,7 +3,9 @@ package com.example.owlcalendar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -121,6 +123,25 @@ public class DayDetail extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),NewSchedule.class);
                 intent.putExtra("DATE",getIntent().getStringExtra("YEAR")+"-"+monthstr+"-"+daystr);
                 startActivity(intent);}
+        });
+
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MainContents.retrievedata(1);
+                ScheduleList.retrievedata();
+                setdata();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 更新が終了したらインジケータ非表示
+                        swipeRefreshLayout.setRefreshing(false);
+
+
+                    }
+                }, 2000);
+            }
         });
 
         setdata();

@@ -32,9 +32,16 @@
 
         <activity android:name=".RegisterActivity"></activity>
 
+        <receiver android:name=".ReminderBroadcast">
+        </receiver>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+
 
 
 </manifest>

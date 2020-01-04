@@ -2,11 +2,13 @@ package com.example.owlcalendar;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,6 +81,25 @@ public class MainActivity extends Fragment {
 
            }
        });
+
+        final SwipeRefreshLayout swipeRefreshLayout = v.findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MainContents.retrievedata(0);
+                ScheduleList.retrievedata();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 更新が終了したらインジケータ非表示
+                        swipeRefreshLayout.setRefreshing(false);
+
+
+                    }
+                }, 3000);
+            }
+        });
+
 
 
         return v;
