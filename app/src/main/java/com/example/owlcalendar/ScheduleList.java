@@ -55,24 +55,9 @@ public class ScheduleList extends Fragment {
     public static ArrayList<String> yoteis = new ArrayList<>();
 
 
-
-    @Nullable
-    @Override
-
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        final View v = inflater.inflate(R.layout.schedulelist,container, false);
-        context = getContext();
-        //
-        //request生成
-
-        if(lv == null){
-            lv = v.findViewById(R.id.schlist);
-        }
-        String username = MainContents.getDefaults("username",getContext());
-        String password = MainContents.getDefaults("password",getContext());
+    public static void retrievedata(){
+        String username = MainContents.getDefaults("username",context);
+        String password = MainContents.getDefaults("password",context);
         if(username==null){
             username="";
         }
@@ -89,6 +74,7 @@ public class ScheduleList extends Fragment {
                 Log.d("Tagarray","jsonStr=" + jsonStr);
                 try {
                     JSONArray jarray = new JSONArray(jsonStr);
+                    yoteis.clear();
                     for (int i = 0; i < jarray.length(); ++ i) {
                         JSONObject json = jarray.getJSONObject(i);
 
@@ -126,27 +112,48 @@ public class ScheduleList extends Fragment {
             @Override
             public void onFinish() {
                 super.onFinish();
-                ScheduleAdapter aa = new ScheduleAdapter(getContext(),yoteis);
+                ScheduleAdapter aa = new ScheduleAdapter(context,yoteis);
                 lv.setAdapter(aa);
 
-                Button newschedule = v.findViewById(R.id.newyoteibutton);
-                newschedule.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(),NewSchedule.class);
-                        startActivity(intent);
-                    }
-                });
+
 
             }
-                });
+        });
+    }
+
+
+    @Nullable
+    @Override
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        final View v = inflater.inflate(R.layout.schedulelist,container, false);
+        context = getContext();
+        //
+        //request生成
+
+        if(lv == null){
+            lv = v.findViewById(R.id.schlist);
+        }
 
 
 
 
 
+        Button newschedule = v.findViewById(R.id.newyoteibutton);
+        newschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),NewSchedule.class);
+                startActivity(intent);
+            }
+        });
 
 
+
+        retrievedata();
 
 
 

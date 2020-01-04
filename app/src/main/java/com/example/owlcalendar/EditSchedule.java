@@ -160,10 +160,9 @@ public class EditSchedule extends AppCompatActivity implements
                         //Integer i = Integer.valueOf(response);
                         if(response.equals("Success")){
 
-                            Intent intent = new Intent(getApplicationContext(),MainContents.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            System.exit(0);
+                            ScheduleList.retrievedata();
+                            MainContents.retrievedata();
+                            finish();
 
 
 

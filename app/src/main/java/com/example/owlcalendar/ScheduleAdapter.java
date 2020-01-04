@@ -108,10 +108,9 @@ public class ScheduleAdapter extends BaseAdapter {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Intent intent = new Intent(context,MainContents.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                            System.exit(0);
+
+                            ScheduleList.retrievedata();
+                            MainContents.retrievedata();
 
 
                         }

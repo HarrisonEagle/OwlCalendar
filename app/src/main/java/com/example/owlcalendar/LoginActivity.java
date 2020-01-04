@@ -75,21 +75,24 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("msg","status:"+response);
                         try {
                             //Integer i = Integer.valueOf(response);
-                            Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+
                             if(!response.equals("Password not Correct!")||!response.equals("User not exist!")){
+                                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
                                 MainContents.setDefaults("username",usrtxt.getText().toString(),getApplicationContext());
                                 MainContents.setDefaults("password",pwdtxt.getText().toString(),getApplicationContext());
                                 MainContents.setDefaults("userdata",response,getApplicationContext());
                                 Log.d("Response",response);
                                 MainContents.loginstatus = 1;
-                                Intent intent = new Intent(getApplicationContext(),MainContents.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                System.exit(0);
+                                ScheduleList.retrievedata();
+                                MainContents.retrievedata();
+                                finish();
+                            }else{
+                                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
                             }
 
 
                         } catch (Exception e) {
+
                             Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
                         }
 

@@ -26,6 +26,20 @@ import java.util.List;
 
 public class MainActivity extends Fragment {
 
+    public static ViewPager viewPager;
+    public static ExampleFragmentPagerAdapter adapter;
+    public static FragmentManager manager;
+
+    public static void retrievedata(){
+        adapter = new ExampleFragmentPagerAdapter(manager);
+        viewPager.setAdapter(adapter);
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue()-1;
+        int day = now.getDayOfMonth();
+        MainContents.curentindex = (year-1970)*12+month;
+        viewPager.setCurrentItem(MainContents.curentindex);
+    }
 
     @Nullable
     @Override
@@ -36,16 +50,10 @@ public class MainActivity extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        FragmentManager manager = getFragmentManager();
-        ViewPager viewPager =  v.findViewById(R.id.calendarview);
-        ExampleFragmentPagerAdapter adapter = new ExampleFragmentPagerAdapter(manager);
-        viewPager.setAdapter(adapter);
-        LocalDateTime now = LocalDateTime.now();
-        int year = now.getYear();
-        int month = now.getMonthValue()-1;
-        int day = now.getDayOfMonth();
-        MainContents.curentindex = (year-1970)*12+month;
-        viewPager.setCurrentItem(MainContents.curentindex);
+        manager = getFragmentManager();
+        viewPager =  v.findViewById(R.id.calendarview);
+
+
 
        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
            @Override
