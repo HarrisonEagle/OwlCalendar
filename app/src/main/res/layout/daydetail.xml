@@ -24,25 +24,21 @@
         android:layout_height="fill_parent"
         android:layout_marginTop="150px"></ListView>
 
-    <Button
+    <ImageButton
         android:id="@+id/newyoteibutton"
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:layout_width="218px"
+        android:layout_height="235px"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:background="@drawable/roundbutton"
-        android:text="+"
-        android:gravity="center"
+        android:background="@drawable/addbtn"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="55dp">
+        android:textSize="55dp"></ImageButton>
 
-
-    </Button>
 
 
 </RelativeLayout>

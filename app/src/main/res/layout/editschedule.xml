@@ -22,7 +22,6 @@
         android:layout_marginTop="20px"
         android:layout_width="match_parent"
         android:layout_height="150px"
-        android:orientation="horizontal"
         android:gravity="center_vertical">
         <EditText
             android:layout_width="fill_parent"
@@ -30,6 +29,7 @@
             android:id="@+id/datetext"
             android:textSize="30dp"
             android:paddingLeft="10dp"
+            android:gravity="center"
             android:background="@drawable/roundedittext"
             android:layout_height="wrap_content"></EditText>
         <Button
@@ -47,11 +47,13 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <EditText
+            android:layout_marginTop="20px"
             android:layout_width="fill_parent"
             android:layout_marginRight="200px"
             android:id="@+id/timetext"
             android:textSize="30dp"
             android:paddingLeft="10dp"
+            android:gravity="center"
             android:background="@drawable/roundedittext"
             android:layout_height="wrap_content"></EditText>
         <Button

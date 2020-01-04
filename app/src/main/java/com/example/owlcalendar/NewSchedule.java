@@ -51,6 +51,10 @@ public class NewSchedule extends AppCompatActivity implements
 
         submitbtn.setOnClickListener(this);
 
+        if(!getIntent().getStringExtra("DATE").equals("")){
+            txtDate.setText(getIntent().getStringExtra("DATE"));
+        }
+
 
 
 
@@ -157,7 +161,12 @@ public class NewSchedule extends AppCompatActivity implements
                         if(response.equals("Success")){
 
                             ScheduleList.retrievedata();
-                            MainContents.retrievedata();
+
+                            if(!getIntent().getStringExtra("DATE").equals("")){
+                                MainContents.retrievedata(1);
+                            }else{
+                                MainContents.retrievedata(0);
+                            }
                             finish();
 
 

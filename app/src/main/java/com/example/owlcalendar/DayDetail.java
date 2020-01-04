@@ -1,5 +1,6 @@
 package com.example.owlcalendar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,24 +16,16 @@ import org.json.JSONObject;
 
 public class DayDetail extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.daydetail);
-        int year = Integer.parseInt(getIntent().getStringExtra("YEAR"));
-        int month = Integer.parseInt(getIntent().getStringExtra("MONTH"));
-        int day = Integer.parseInt(getIntent().getStringExtra("DAY"));
-        TextView textView = findViewById(R.id.daytext);
-        textView.setText(year+"年"+month+"月"+day+"日");
-        ListView listView = findViewById(R.id.detaillist);
-        Button newschedule = findViewById(R.id.newyoteibutton);
-        newschedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),NewSchedule.class);
-                startActivity(intent);}
-        });
-        DetailAdapter detailAdapter = new DetailAdapter(getApplicationContext(),year,month,day);
+    public static String daystr,monthstr;
+    public static DetailAdapter detailAdapter;
+    public static int year;
+    public static int month;
+    public static int day;
+    public static Context context;
+    public static ListView listView;
+
+    public static void setdata(){
+        detailAdapter = new DetailAdapter(context,year,month,day);
         if(day==1&&month==1){
             detailchild dc =new detailchild("元日","",2);
             detailAdapter.detaillist.add(dc);
@@ -99,5 +93,37 @@ public class DayDetail extends AppCompatActivity {
             }
         }
         listView.setAdapter(detailAdapter);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.daydetail);
+        year = Integer.parseInt(getIntent().getStringExtra("YEAR"));
+        month = Integer.parseInt(getIntent().getStringExtra("MONTH"));
+        day = Integer.parseInt(getIntent().getStringExtra("DAY"));
+        monthstr = getIntent().getStringExtra("MONTH");
+        daystr = getIntent().getStringExtra("DAY");
+        context = getApplicationContext();
+        if(month<10){
+            monthstr="0"+monthstr;
+        }
+        if(day<10){
+            daystr="0"+daystr;
+        }
+        TextView textView = findViewById(R.id.daytext);
+        textView.setText(year+"年"+month+"月"+day+"日");
+        listView = findViewById(R.id.detaillist);
+        ImageButton newschedule = findViewById(R.id.newyoteibutton);
+        newschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),NewSchedule.class);
+                intent.putExtra("DATE",getIntent().getStringExtra("YEAR")+"-"+monthstr+"-"+daystr);
+                startActivity(intent);}
+        });
+
+        setdata();
+
     }
 }

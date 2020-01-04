@@ -48,7 +48,7 @@ public class MainContents extends AppCompatActivity{
 
     public static ArrayList<String> yoteis = new ArrayList<String>();
 
-    public static void retrievedata(){
+    public static void retrievedata(final int status){
         String username = getDefaults("username",context);
         String password = getDefaults("password",context);
         if(username==null){
@@ -78,7 +78,7 @@ public class MainContents extends AppCompatActivity{
 
 
                 }
-                MyPage.setup();
+
 
             }
 
@@ -149,6 +149,10 @@ public class MainContents extends AppCompatActivity{
                     public void onFinish() {
                         super.onFinish();
                         ma.retrievedata();
+                        MyPage.setup();
+                        if(status==1){
+                            DayDetail.setdata();
+                        }
 
 
                     }
@@ -233,7 +237,7 @@ public class MainContents extends AppCompatActivity{
                 }
             });
 
-            retrievedata();
+            retrievedata(0);
 
 
 

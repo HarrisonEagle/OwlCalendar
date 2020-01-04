@@ -142,11 +142,12 @@ public class ScheduleList extends Fragment {
 
 
 
-        Button newschedule = v.findViewById(R.id.newyoteibutton);
+        ImageButton newschedule = v.findViewById(R.id.newyoteibutton);
         newschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(),NewSchedule.class);
+                intent.putExtra("DATE","");
                 startActivity(intent);
             }
         });

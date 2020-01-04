@@ -161,7 +161,7 @@ public class EditSchedule extends AppCompatActivity implements
                         if(response.equals("Success")){
 
                             ScheduleList.retrievedata();
-                            MainContents.retrievedata();
+                            MainContents.retrievedata(0);
                             finish();
 
 

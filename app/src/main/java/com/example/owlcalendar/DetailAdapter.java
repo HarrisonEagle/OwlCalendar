@@ -74,7 +74,7 @@ public class DetailAdapter extends BaseAdapter {
                 int hour = Integer.valueOf(time.substring(8,10));
                 int minute = Integer.valueOf(time.substring(10,12));
                 TextView textView = view.findViewById(R.id.childtextchild);
-                textView.setText(hour+":"+minute);
+                textView.setText(hour+":"+time.substring(10,12));
                 TextView contents = view.findViewById(R.id.contentchild);
                 contents.setText(jsonObject.getString("content"));
                 SwipeLayout swipeLayout = (SwipeLayout) view.findViewById(R.id.swipelayout);

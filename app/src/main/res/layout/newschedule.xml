@@ -55,6 +55,7 @@
             android:layout_marginRight="200px"
             android:id="@+id/timetext"
             android:textSize="30dp"
+            android:gravity="center"
             android:paddingLeft="10dp"
             android:background="@drawable/roundedittext"
             android:layout_height="wrap_content"></EditText>

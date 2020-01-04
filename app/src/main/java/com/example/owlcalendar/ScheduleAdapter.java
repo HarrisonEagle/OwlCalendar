@@ -62,7 +62,7 @@ public class ScheduleAdapter extends BaseAdapter {
             int monthtime = Integer.valueOf(time.substring(4,6));
             int daytime = Integer.valueOf(time.substring(6,8));
             int hour = Integer.valueOf(time.substring(8,10));
-            int minute = Integer.valueOf(time.substring(10,12));
+            String minute = time.substring(10,12);
             TextView textView = view.findViewById(R.id.childtextchild);
             textView.setText(yeartime+"年"+monthtime+"月"+daytime+"日  "+hour+":"+minute);
             TextView contentt = view.findViewById(R.id.contentchild);
@@ -110,7 +110,7 @@ public class ScheduleAdapter extends BaseAdapter {
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                             ScheduleList.retrievedata();
-                            MainContents.retrievedata();
+                            MainContents.retrievedata(0);
 
 
                         }

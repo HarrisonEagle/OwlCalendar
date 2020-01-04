@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("Response",response);
                                 MainContents.loginstatus = 1;
                                 ScheduleList.retrievedata();
-                                MainContents.retrievedata();
+                                MainContents.retrievedata(0);
                                 finish();
                             }else{
                                 Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
