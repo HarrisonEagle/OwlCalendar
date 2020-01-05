@@ -132,6 +132,8 @@ public class ScheduleList extends Fragment {
                         if(Integer.valueOf(minute)<10&&minute.length()==1){
                             minute = "0" + minute;
                         }
+
+                        long before = System.currentTimeMillis();
                         Calendar cal = Calendar.getInstance();
 
                         cal.setTimeInMillis(System.currentTimeMillis());
@@ -143,7 +145,6 @@ public class ScheduleList extends Fragment {
                         cal.set(Calendar.MINUTE,Integer.valueOf(minute));
                         cal.set(Calendar.SECOND, 0);
                         cal.set(Calendar.MILLISECOND, 0);
-                        String before = yeartime + "-"+monthtime+"-"+daytime+" "+hour+":"+minute;
 
 
 
@@ -151,6 +152,9 @@ public class ScheduleList extends Fragment {
                         Intent intent = new Intent(context,ReminderBroadcast.class);
                         intent.putExtra("id",String.valueOf(i));
                         intent.putExtra("title",hour+":"+minute+"の予定");
+                        intent.putExtra("year",String.valueOf(yeartime));
+                        intent.putExtra("month",String.valueOf(monthtime));
+                        intent.putExtra("day",String.valueOf(daytime));
                         intent.putExtra("content",content);
 
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,i,intent,PendingIntent.FLAG_ONE_SHOT);
@@ -166,9 +170,10 @@ public class ScheduleList extends Fragment {
                         long after = cal.getTimeInMillis();
                         SimpleDateFormat  object = new SimpleDateFormat("yyyy-MM-dd HH-mm");
 
-                        Log.d("TimeSecond","Before:"+before+"After:"+object.format(cal.getTime()));
 
-                        alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+                        if(before<after){
+                            alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+                        }
 
                     }
                 }

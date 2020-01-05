@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 public class DayDetail extends AppCompatActivity {
 
     public static String daystr,monthstr;
@@ -102,8 +104,18 @@ public class DayDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.daydetail);
         year = Integer.parseInt(getIntent().getStringExtra("YEAR"));
+        if(year==0){
+            year= Calendar.getInstance().get(Calendar.YEAR);
+        }
         month = Integer.parseInt(getIntent().getStringExtra("MONTH"));
+        if(month==0){
+            month= Calendar.getInstance().get(Calendar.MONTH)+1;
+        }
         day = Integer.parseInt(getIntent().getStringExtra("DAY"));
+        if(day==0){
+            day= Calendar.getInstance().get(Calendar.DATE);
+        }
+        Log.d("daydata",year+"-"+month+"-"+day);
         monthstr = getIntent().getStringExtra("MONTH");
         daystr = getIntent().getStringExtra("DAY");
         context = getApplicationContext();

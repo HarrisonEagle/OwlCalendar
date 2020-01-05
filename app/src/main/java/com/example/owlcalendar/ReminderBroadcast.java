@@ -8,13 +8,20 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
+import org.json.JSONObject;
+
+import java.util.Calendar;
+
 public class ReminderBroadcast extends BroadcastReceiver {
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent notificationIntent = new Intent(context, MainContents.class);
+
+        Calendar calendar = Calendar.getInstance();
+
+        Intent notificationIntent = new Intent(context, DayDetail.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"Channel_id"+Integer.valueOf(intent.getStringExtra("id")))
